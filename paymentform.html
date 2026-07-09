@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Activate Glam Account • Pay Glam Fee</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', 'Segoe UI', system-ui, sans-serif;
+        }
+
+        body {
+            background: rgb(49, 36, 26);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 4px;
+            color: #ffffff;
+        }
+
+        .container {
+            max-width: 460px;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.45);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border-radius: 28px;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+            overflow: hidden;
+            border: 1px solid rgba(228, 179, 99, 0.25);
+        }
+
+        /* header */
+        .header {
+            padding: 20px 24px;
+            border-bottom: 1px solid rgba(228, 179, 99, 0.25);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h2 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: rgb(228, 179, 99);
+        }
+
+        .cancel-icon {
+            background: none;
+            border: none;
+            color: rgb(228, 179, 99);
+            font-size: 1.3rem;
+            cursor: pointer;
+            text-decoration: none;
+            transition: 0.2s;
+        }
+
+        .cancel-icon:hover {
+            color: rgb(245, 200, 120);
+            transform: scale(1.05);
+        }
+
+        .content {
+            padding: 20px 24px 28px;
+        }
+
+        /* Bank info */
+        .bank-info {
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 20px;
+            padding: 16px;
+            margin-bottom: 14px;
+            border: 1px solid rgba(228, 179, 99, 0.3);
+            backdrop-filter: blur(8px);
+        }
+
+        .bank-info .info-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+        }
+
+        .info-row .label {
+            color: rgba(255, 255, 255, 0.8);
+            font-weight: 800;
+        }
+
+        .info-row .value {
+            font-weight: 800;
+            color: rgb(228, 179, 99);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .copy-btn-small {
+            background: rgb(228, 179, 99);
+            color: #0a2b3e;
+            border: none;
+            padding: 3px 12px;
+            border-radius: 30px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+            white-space: nowrap;
+        }
+
+        .copy-btn-small:hover {
+            background: rgb(245, 200, 120);
+        }
+
+        .accounts-title {
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #ffffff;
+            font-size: 0.8rem;
+        }
+
+        .account-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 12px 16px;
+            border-radius: 16px;
+            margin-bottom: 12px;
+            border: 1px solid rgba(228, 179, 99, 0.3);
+            backdrop-filter: blur(4px);
+        }
+
+        .account-number {
+            font-size: 1rem;
+            font-weight: 700;
+            font-family: monospace;
+            letter-spacing: 0.5px;
+            color: rgb(228, 179, 99);
+        }
+
+        .copy-btn {
+            background: rgb(228, 179, 99);
+            color: #0a2b3e;
+            border: none;
+            padding: 4px 14px;
+            border-radius: 40px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .copy-btn:hover {
+            background: rgb(245, 200, 120);
+        }
+
+        .amount-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 14px 16px;
+            border-radius: 16px;
+            margin: 20px 0 24px;
+            border: 1px solid rgba(228, 179, 99, 0.3);
+            backdrop-filter: blur(4px);
+        }
+
+        .amount-label {
+            font-weight: 500;
+            color: #ffffff;
+        }
+
+        .amount-value {
+            font-weight: 800;
+            font-size: 1.3rem;
+            color: rgb(228, 179, 99);
+        }
+
+        .telegram-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: rgb(228, 179, 99);
+            color: #0a2b3e;
+            text-decoration: none;
+            padding: 12px;
+            border-radius: 60px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: 0.2s;
+            margin-bottom: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .telegram-btn:hover {
+            background: rgb(245, 200, 120);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .help-text {
+            text-align: center;
+            font-size: 0.7rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .back-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .back-link a {
+            color: rgb(228, 179, 99);
+            text-decoration: none;
+            font-size: 0.8rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: 0.2s;
+        }
+
+        .back-link a:hover {
+            color: rgb(245, 200, 120);
+        }
+
+        hr {
+            margin: 16px 0;
+            border-color: rgba(228, 179, 99, 0.25);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h2>Complete Fee Payment</h2>
+            <a href="dashbord.html" class="cancel-icon"><i class="fas fa-times"></i></a>
+        </div>
+        <div class="content">
+            <!-- New FCMB bank details -->
+            <div class="bank-info">
+                <div class="info-row">
+                    <span class="label">Account Name</span>
+                    <span class="value">
+                        Malinze Blessing Amarachi
+                        <button class="copy-btn-small" data-copy="Malinze Blessing Amarachi">Copy</button>
+                    </span>
+                </div>
+                <div class="info-row">
+                    <span class="label">Bank Name</span>
+                    <span class="value">FCMB bank</span>
+                </div>
+            </div>
+
+            <div class="accounts-title">Account number for payment</div>
+
+            <div class="account-item">
+                <span class="account-number">1049802269</span>
+                <button class="copy-btn" data-copy="1049802269">Copy</button>
+            </div>
+
+            <div class="amount-row">
+                <span class="amount-label">Amount to Pay (Glam Fee)</span>
+                <span class="amount-value" id="amountToPay">₦14,000</span>
+            </div>
+
+            <!-- Corrected Telegram link -->
+            <a href="https://t.me/Top_bigmalinze" class="telegram-btn" target="_blank">
+                <i class="fab fa-telegram-plane"></i> Confirm on Telegram
+            </a>
+            <div class="help-text">After transfer, click above to send your receipt / screenshot</div>
+
+            <hr>
+            <div class="back-link">
+                <a href="dashbord.html"><i class="fas fa-arrow-left"></i> Back to Dashboard</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ---------- PAYMENT LOGIC ----------
+        const userData = JSON.parse(localStorage.getItem('glamourUserData'));
+        if (userData && userData.planPrice) {
+            let amount = parseInt(userData.planPrice);
+            document.getElementById('amountToPay').textContent = `₦${amount.toLocaleString()}`;
+        }
+
+        // Copy buttons
+        document.querySelectorAll('.copy-btn, .copy-btn-small').forEach(btn => {
+            btn.addEventListener('click', function () {
+                const textToCopy = this.getAttribute('data-copy');
+                navigator.clipboard.writeText(textToCopy).then(() => {
+                    const originalText = this.textContent;
+                    this.textContent = 'Copied!';
+                    setTimeout(() => {
+                        this.textContent = originalText;
+                    }, 1500);
+                }).catch(() => {
+                    alert(`Please copy manually: ${textToCopy}`);
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

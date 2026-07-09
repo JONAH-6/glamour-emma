@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Join Glamour • Register Now</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background: #2a2418;
+            color: #f0e6d2;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 480px;
+            margin: 0 auto;
+            background: #1e1a14;
+            border: 1px solid #c9a87b;
+            padding: 28px 24px;
+        }
+
+        .form-header {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #c9a87b;
+            margin-bottom: 12px;
+        }
+
+        .form-header h1 {
+            font-size: 1.6rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #f0e6d2;
+        }
+
+        .form-header p {
+            color: #b8aa92;
+            font-size: 0.85rem;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 12px 14px;
+            background: #2f2a22;
+            border: 1px solid #4a4136;
+            color: #f0e6d2;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+        }
+
+        input::placeholder {
+            color: #8b7f6a;
+        }
+
+        input:focus,
+        select:focus {
+            outline: none;
+            border-color: #c9a87b;
+            background: #3a3228;
+        }
+
+        .plan-options {
+            margin-top: 8px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .plan-option {
+            background: #2f2a22;
+            border: 1px solid #4a4136;
+            padding: 14px 18px;
+            cursor: pointer;
+            transition: all 0.2s;
+            position: relative;
+        }
+
+        .plan-option.selected {
+            border-color: #c9a87b;
+            background: #3a3228;
+        }
+
+        .plan-option.selected::after {
+            content: '✓';
+            position: absolute;
+            top: 50%;
+            right: 18px;
+            transform: translateY(-50%);
+            color: #c9a87b;
+            font-weight: bold;
+        }
+
+        .plan-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 4px;
+        }
+
+        .plan-name {
+            font-weight: 600;
+            color: #c9a87b;
+        }
+
+        .plan-price {
+            font-weight: 700;
+            color: #c9a87b;
+        }
+
+        .plan-description {
+            font-size: 0.8rem;
+            color: #b8aa92;
+        }
+
+        .btn {
+            display: block;
+            width: 100%;
+            background: #c9a87b;
+            color: #1e1a14;
+            padding: 14px;
+            font-weight: 700;
+            font-size: 1rem;
+            border: none;
+            cursor: pointer;
+            transition: background 0.2s;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .btn:hover {
+            background: #b58f5c;
+            color: #fff;
+        }
+
+        .back-link {
+            text-align: center;
+            margin-top: 24px;
+            padding-top: 16px;
+            border-top: 1px solid #4a4136;
+        }
+
+        .back-link a {
+            color: #c9a87b;
+            text-decoration: none;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.85rem;
+        }
+
+        .back-link a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 16px;
+            }
+
+            .container {
+                padding: 20px;
+            }
+
+            .form-header h1 {
+                font-size: 1.4rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="form-header">
+            <h1>Join Glamour Today</h1>
+            <p>Complete your registration to access your Glam Dashboard</p>
+        </div>
+
+        <form id="registrationForm">
+            <div class="form-group">
+                <input type="text" id="fullName" placeholder="Full Name" required>
+            </div>
+            <div class="form-group">
+                <input type="tel" id="phoneNumber" placeholder="Phone Number" required>
+            </div>
+            <div class="form-group">
+                <input type="email" id="email" placeholder="Email Address" required>
+            </div>
+            <div class="form-group">
+                <select id="country" required>
+                    <option value="" disabled selected>Select Country</option>
+                    <option value="nigeria">Nigeria</option>
+                    <option value="ghana">Ghana</option>
+                    <option value="south-africa">South Africa</option>
+                    <option value="kenya">Kenya</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <p style="color: #b8aa92; margin-bottom: 6px; font-weight: 500;">Choose Your Glam Plan</p>
+                <div class="plan-options">
+                    <!-- Plan 1: ₦14,000 -->
+                    <div class="plan-option selected" data-plan="premium" data-price="14000">
+                        <div class="plan-header">
+                            <span class="plan-name">Glam Premium Pass</span>
+                            <span class="plan-price">₦14,000</span>
+                        </div>
+                        <div class="plan-description">Full access to all 10 Glam modules & GlamWorks</div>
+                    </div>
+                    <!-- Plan 2: ₦20,000 -->
+                    <div class="plan-option" data-plan="elite" data-price="20000">
+                        <div class="plan-header">
+                            <span class="plan-name">Glam Elite Pass</span>
+                            <span class="plan-price">₦20,000</span>
+                        </div>
+                        <div class="plan-description">Everything in Premium + Priority support + Bonus earnings</div>
+                    </div>
+                </div>
+                <input type="hidden" id="selectedPlan" value="premium">
+                <input type="hidden" id="selectedPlanPrice" value="14000">
+            </div>
+
+            <button type="submit" class="btn">Proceed to Glam Dashboard</button>
+        </form>
+
+        <div class="back-link">
+            <a href="index.html"><i class="fas fa-arrow-left"></i> Back to Home</a>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const planOptions = document.querySelectorAll('.plan-option');
+            const selectedPlanInput = document.getElementById('selectedPlan');
+            const selectedPriceInput = document.getElementById('selectedPlanPrice');
+
+            function setActivePlan(selectedElement) {
+                planOptions.forEach(opt => opt.classList.remove('selected'));
+                selectedElement.classList.add('selected');
+                selectedPlanInput.value = selectedElement.getAttribute('data-plan');
+                selectedPriceInput.value = selectedElement.getAttribute('data-price');
+            }
+
+            planOptions.forEach(option => {
+                option.addEventListener('click', () => setActivePlan(option));
+            });
+
+            // Set default from the initially selected plan
+            const defaultSelected = document.querySelector('.plan-option.selected');
+            if (defaultSelected) {
+                selectedPlanInput.value = defaultSelected.getAttribute('data-plan');
+                selectedPriceInput.value = defaultSelected.getAttribute('data-price');
+            }
+        });
+
+        document.getElementById('registrationForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const fullName = document.getElementById('fullName').value.trim();
+            const phoneNumber = document.getElementById('phoneNumber').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const country = document.getElementById('country').value;
+            const selectedPlan = document.getElementById('selectedPlan').value;
+            const selectedPlanPrice = document.getElementById('selectedPlanPrice').value;
+
+            if (!fullName || !phoneNumber || !email || !country) {
+                alert('Please fill in all required fields.');
+                return;
+            }
+            if (phoneNumber.length < 10) {
+                alert('Please enter a valid phone number.');
+                return;
+            }
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                alert('Please enter a valid email address.');
+                return;
+            }
+
+            const userData = {
+                fullName, phoneNumber, email, country,
+                plan: selectedPlan,
+                planPrice: selectedPlanPrice,
+                registeredAt: new Date().toISOString()
+            };
+            localStorage.setItem('glamourUserData', JSON.stringify(userData));
+            window.location.href = 'dashbord.html';
+        });
+    </script>
+</body>
+
+</html>
