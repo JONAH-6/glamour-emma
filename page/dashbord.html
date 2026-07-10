@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Glamour • Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet" />
+    <style>
+        :root {
+            --gold: rgb(228, 179, 99);
+            --gold-light: rgb(245, 200, 120);
+            --gold-soft: rgba(228, 179, 99, 0.15);
+            --gold-border: rgba(228, 179, 99, 0.3);
+            --bg-deep: #1a1410;
+            --bg-card: rgba(0, 0, 0, 0.35);
+            --text-dim: rgba(255, 255, 255, 0.55);
+            --text-muted: rgba(255, 255, 255, 0.65);
+            --text-soft: rgba(255, 255, 255, 0.8);
+            --radius-lg: 22px;
+            --radius-md: 18px;
+            --radius-sm: 14px;
+            --radius-btn: 30px;
+            --shadow-gold: 0 8px 24px rgba(228, 179, 99, 0.25);
+            --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: var(--bg-deep);
+            color: #fff;
+            font-family: 'Poppins', 'Segoe UI', system-ui, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .dashboard-container {
+            max-width: 800px;
+            margin: 0 auto;
+            width: 100%;
+            min-height: 100vh;
+            padding-bottom: 100px;
+            position: relative;
+        }
+
+        /* ── Top Bar ── */
+        .top-bar {
+            padding: 22px 20px 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .top-bar .greeting {
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--gold);
+            letter-spacing: -0.2px;
+        }
+
+        .top-bar .sub {
+            font-size: 0.78rem;
+            color: var(--text-dim);
+            margin-top: 2px;
+            font-weight: 400;
+        }
+
+        .avatar {
+            width: 46px;
+            height: 46px;
+            background: linear-gradient(135deg, var(--gold), rgb(200, 155, 80));
+            color: #1a1410;
+            font-weight: 700;
+            font-size: 1.05rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            box-shadow: var(--shadow-gold);
+            flex-shrink: 0;
+            letter-spacing: 0.5px;
+            user-select: none;
+        }
+
+        /* ── Plan Card ── */
+        .plan-card {
+            margin: 8px 20px 20px;
+            background: linear-gradient(145deg, rgba(228, 179, 99, 0.1), rgba(0, 0, 0, 0.55));
+            border: 1px solid var(--gold-border);
+            border-radius: var(--radius-lg);
+            padding: 22px 22px 24px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .plan-card::after {
+            content: '';
+            position: absolute;
+            top: -40px;
+            right: -40px;
+            width: 130px;
+            height: 130px;
+            background: radial-gradient(circle, rgba(228, 179, 99, 0.12), transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .plan-card .plan-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            position: relative;
+            z-index: 1;
+        }
+
+        .plan-card .plan-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1.8px;
+            color: rgba(255, 255, 255, 0.45);
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+
+        .plan-card .plan-badge {
+            display: inline-block;
+            background: var(--gold-soft);
+            border: 1px solid rgba(228, 179, 99, 0.4);
+            border-radius: 20px;
+            padding: 4px 14px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: var(--gold);
+            margin-bottom: 8px;
+            letter-spacing: 0.3px;
+        }
+
+        .plan-card .plan-price {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--gold);
+            line-height: 1;
+            margin-bottom: 6px;
+            letter-spacing: -0.5px;
+        }
+
+        .plan-card .plan-note {
+            font-size: 0.76rem;
+            color: var(--text-muted);
+            margin-bottom: 14px;
+            line-height: 1.4;
+        }
+
+        /* ── Buttons container ── */
+        .plan-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 12px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .plan-btn {
+            flex: 1;
+            background: var(--gold);
+            color: #1a1410;
+            border: none;
+            padding: 14px 10px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            border-radius: var(--radius-btn);
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 7px;
+            white-space: nowrap;
+            font-family: 'Poppins', 'Segoe UI', system-ui, sans-serif;
+            letter-spacing: 0.3px;
+        }
+
+        .plan-btn i {
+            font-size: 0.85rem;
+            flex-shrink: 0;
+        }
+
+        .plan-btn:hover {
+            background: var(--gold-light);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 28px rgba(228, 179, 99, 0.35);
+        }
+
+        .add-fund-btn {
+            background: transparent;
+            border: 1.5px solid var(--gold);
+            color: var(--gold);
+        }
+
+        .add-fund-btn:hover {
+            background: var(--gold);
+            color: #1a1410;
+        }
+
+        /* ── Stats Row ── */
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin: 0 20px 24px;
+            user-select: none;
+        }
+
+        .stat-chip {
+            background: var(--bg-card);
+            border: 1px solid rgba(228, 179, 99, 0.12);
+            border-radius: var(--radius-sm);
+            padding: 15px 8px;
+            text-align: center;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .stat-chip:hover {
+            border-color: rgba(228, 179, 99, 0.35);
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .stat-chip .stat-icon {
+            font-size: 1.15rem;
+            color: var(--gold);
+            margin-bottom: 7px;
+        }
+
+        .stat-chip .stat-value {
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: #fff;
+            letter-spacing: 0.2px;
+        }
+
+        .stat-chip .stat-label {
+            font-size: 0.62rem;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            margin-top: 3px;
+            font-weight: 500;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* ── Section Title ── */
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            margin-bottom: 14px;
+            cursor: pointer;
+        }
+
+        .section-header h3 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #fff;
+            letter-spacing: 0.2px;
+            user-select: none;
+        }
+
+        .section-header .more {
+            font-size: 0.76rem;
+            color: var(--gold);
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .section-header .more:hover {
+            color: var(--gold-light);
+            text-decoration: underline;
+            text-underline-offset: 4px;
+        }
+
+        /* ── Quick Links Grid ── */
+        .quick-links-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin: 0 20px 24px;
+        }
+
+        .quick-link-item {
+            background: var(--bg-card);
+            border: 1px solid rgba(228, 179, 99, 0.1);
+            border-radius: var(--radius-md);
+            padding: 15px 6px 13px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 7px;
+            min-height: 72px;
+        }
+
+        .quick-link-item:hover {
+            background: rgba(228, 179, 99, 0.07);
+            border-color: rgba(228, 179, 99, 0.4);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .quick-link-item .link-icon {
+            font-size: 1.25rem;
+            color: var(--gold);
+            flex-shrink: 0;
+            line-height: 1;
+        }
+
+        .quick-link-item span {
+            font-size: 0.66rem;
+            color: var(--text-soft);
+            font-weight: 500;
+            line-height: 1.25;
+            display: block;
+            word-break: break-word;
+            overflow-wrap: break-word;
+            hyphens: auto;
+            max-width: 100%;
+            text-align: center;
+        }
+
+        /* ── Stream Banner ── */
+        .stream-banner {
+            margin: 0 20px 24px;
+            background: linear-gradient(135deg, rgba(228, 179, 99, 0.08), rgba(0, 0, 0, 0.6));
+            border: 1px solid rgba(228, 179, 99, 0.2);
+            border-radius: 20px;
+            padding: 20px 20px 18px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .stream-banner:hover {
+            border-color: rgba(228, 179, 99, 0.4);
+        }
+
+        .stream-banner .boost-tag {
+            display: inline-block;
+            background: var(--gold);
+            color: #1a1410;
+            font-size: 0.65rem;
+            font-weight: 800;
+            padding: 5px 13px;
+            border-radius: 14px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            user-select: none;
+        }
+
+        .stream-banner h4 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 5px;
+            letter-spacing: 0.2px;
+            user-select: none;
+        }
+
+        .stream-banner p {
+            font-size: 0.76rem;
+            color: var(--text-muted);
+            margin-bottom: 15px;
+            line-height: 1.5;
+            user-select: none;
+        }
+
+        .stream-banner .join-btn {
+            width: 100%;
+            background: transparent;
+            border: 1.5px solid var(--gold);
+            color: var(--gold);
+            padding: 12px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            border-radius: var(--radius-btn);
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: 'Poppins', 'Segoe UI', system-ui, sans-serif;
+            letter-spacing: 0.3px;
+        }
+
+        .stream-banner .join-btn:hover {
+            background: var(--gold);
+            color: #1a1410;
+            box-shadow: var(--shadow-gold);
+        }
+
+        /* ── Bottom Nav ── */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 800px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            background: rgba(18, 11, 6, 0.92);
+            backdrop-filter: blur(22px);
+            -webkit-backdrop-filter: blur(22px);
+            border-top: 1px solid rgba(228, 179, 99, 0.22);
+            z-index: 1000;
+            padding: 8px 0 10px;
+            gap: 2px;
+        }
+
+        .nav-item {
+            background: none;
+            border: none;
+            color: var(--text-dim);
+            padding: 6px 2px 4px;
+            font-size: 0.64rem;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            transition: var(--transition);
+            font-weight: 500;
+            font-family: 'Poppins', 'Segoe UI', system-ui, sans-serif;
+            letter-spacing: 0.2px;
+            min-height: 52px;
+            text-align: center;
+            position: relative;
+        }
+
+        .nav-item i {
+            font-size: 1.15rem;
+            flex-shrink: 0;
+            line-height: 1;
+        }
+
+        .nav-item span {
+            display: block;
+            line-height: 1.25;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 100%;
+            font-size: 0.63rem;
+        }
+
+        .nav-item.active {
+            color: var(--gold);
+        }
+
+        .nav-item .nav-dot {
+            width: 5px;
+            height: 5px;
+            background: var(--gold);
+            border-radius: 50%;
+            opacity: 0;
+            transition: opacity 0.2s;
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .nav-item.active .nav-dot {
+            opacity: 1;
+        }
+
+        .nav-item:hover {
+            color: rgba(255, 255, 255, 0.85);
+        }
+
+        .nav-item.active:hover {
+            color: var(--gold);
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 600px) {
+            .plan-card {
+                padding: 17px 18px 20px;
+            }
+
+            .plan-card .plan-price {
+                font-size: 2.1rem;
+            }
+
+            .plan-btn {
+                font-size: 0.78rem;
+                padding: 12px 8px;
+                gap: 5px;
+                border-radius: 26px;
+            }
+
+            .plan-btn i {
+                font-size: 0.78rem;
+            }
+
+            .quick-links-grid {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 7px;
+            }
+
+            .quick-link-item {
+                padding: 12px 3px 11px;
+                border-radius: var(--radius-sm);
+                gap: 5px;
+                min-height: 62px;
+            }
+
+            .quick-link-item .link-icon {
+                font-size: 1.1rem;
+            }
+
+            .quick-link-item span {
+                font-size: 0.6rem;
+                line-height: 1.2;
+            }
+
+            .stats-row {
+                gap: 7px;
+            }
+
+            .stat-chip {
+                padding: 12px 5px;
+                border-radius: 12px;
+            }
+
+            .stat-chip .stat-value {
+                font-size: 0.9rem;
+            }
+
+            .stat-chip .stat-label {
+                font-size: 0.58rem;
+            }
+
+            .top-bar {
+                padding: 16px 16px 8px;
+            }
+
+            .top-bar .greeting {
+                font-size: 1.2rem;
+            }
+
+            .plan-card,
+            .quick-links-grid,
+            .stream-banner,
+            .stats-row,
+            .section-header {
+                margin-left: 14px;
+                margin-right: 14px;
+            }
+
+            .section-header {
+                padding: 0 14px;
+            }
+
+            .stream-banner .join-btn {
+                font-size: 0.76rem;
+                padding: 10px;
+            }
+
+            .bottom-nav {
+                padding: 6px 0 8px;
+                gap: 0;
+            }
+
+            .nav-item {
+                padding: 4px 1px 3px;
+                gap: 4px;
+                min-height: 46px;
+            }
+
+            .nav-item i {
+                font-size: 1.05rem;
+            }
+
+            .nav-item span {
+                font-size: 0.58rem;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .quick-links-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 6px;
+            }
+
+            .quick-link-item {
+                padding: 11px 2px 10px;
+                min-height: 56px;
+                gap: 4px;
+                border-radius: 12px;
+            }
+
+            .quick-link-item .link-icon {
+                font-size: 1rem;
+            }
+
+            .quick-link-item span {
+                font-size: 0.56rem;
+                line-height: 1.2;
+            }
+
+            .stats-row {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 5px;
+            }
+
+            .stat-chip {
+                padding: 10px 4px;
+            }
+
+            .stat-chip .stat-value {
+                font-size: 0.82rem;
+            }
+
+            .stat-chip .stat-label {
+                font-size: 0.55rem;
+            }
+
+            .plan-btn {
+                font-size: 0.7rem;
+                padding: 10px 6px;
+                gap: 3px;
+                border-radius: 22px;
+            }
+
+            .plan-btn i {
+                font-size: 0.7rem;
+            }
+
+            .bottom-nav {
+                padding: 5px 0 6px;
+            }
+
+            .nav-item {
+                padding: 3px 0px 2px;
+                gap: 3px;
+                min-height: 42px;
+            }
+
+            .nav-item i {
+                font-size: 0.95rem;
+            }
+
+            .nav-item span {
+                font-size: 0.53rem;
+                letter-spacing: 0px;
+            }
+
+            .nav-item .nav-dot {
+                width: 4px;
+                height: 4px;
+                bottom: -1px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <!-- Top Bar -->
+        <div class="top-bar">
+            <div>
+                <div class="greeting" id="welcomeName">hi!</div>
+                <div class="sub" id="userEmail">User</div>
+            </div>
+            <div class="avatar" id="userAvatar">👤</div>
+        </div>
+
+        <!-- Plan Card -->
+        <div class="plan-card">
+            <div class="plan-row">
+                <div>
+                    <div class="plan-label">Your Plan</div>
+                    <div class="plan-badge" id="planBadge">Glam Premium Pass</div>
+                    <div class="plan-price" id="earningsAmount">₦14,000</div>
+                    <div class="plan-note" id="balanceNote">Activate to start earning in Naira</div>
+                </div>
+            </div>
+            <!-- Two buttons with icons -->
+            <div class="plan-buttons">
+                <button class="plan-btn" id="withdrawBtn">
+                    <i class="fas fa-wallet"></i> Request Withdrawal
+                </button>
+                <button class="plan-btn add-fund-btn" id="addFundBtn">
+                    <i class="fas fa-plus-circle"></i> Add Fund
+                </button>
+            </div>
+        </div>
+
+        <!-- Stats Row (now Access Loan, Claim Bonus, Join VIP Group) -->
+        <div class="stats-row">
+            <div class="stat-chip" data-label="Access Loan">
+                <div class="stat-icon"><i class="fas fa-hand-holding-usd"></i></div>
+                <div class="stat-value">Apply</div>
+                <div class="stat-label">Access Loan</div>
+            </div>
+            <div class="stat-chip" data-label="Claim Bonus">
+                <div class="stat-icon"><i class="fas fa-gift"></i></div>
+                <div class="stat-value">Get</div>
+                <div class="stat-label">Claim Bonus</div>
+            </div>
+            <div class="stat-chip" data-label="Join VIP Group">
+                <div class="stat-icon"><i class="fas fa-crown"></i></div>
+                <div class="stat-value">Join</div>
+                <div class="stat-label">VIP Group</div>
+            </div>
+        </div>
+
+        <!-- Quick Links -->
+        <div class="section-header">
+            <h3>Quick Links</h3>
+            <span class="more" id="moreLink">More →</span>
+        </div>
+        <div class="quick-links-grid">
+            <div class="quick-link-item" data-label="Upload">
+                <div class="link-icon"><i class="fas fa-cloud-upload-alt"></i></div>
+                <span>Upload</span>
+            </div>
+            <div class="quick-link-item" data-label="Scripts">
+                <div class="link-icon"><i class="fas fa-file-download"></i></div>
+                <span>Scripts</span>
+            </div>
+            <div class="quick-link-item" data-label="Livestreams">
+                <div class="link-icon"><i class="fas fa-video"></i></div>
+                <span>Livestreams</span>
+            </div>
+            <div class="quick-link-item" data-label="Watch & Earn">
+                <div class="link-icon"><i class="fas fa-eye"></i></div>
+                <span>Watch & Earn</span>
+            </div>
+            <div class="quick-link-item" data-label="Loot Box">
+                <div class="link-icon"><i class="fas fa-cube"></i></div>
+                <span>Loot Box</span>
+            </div>
+            <div class="quick-link-item" data-label="Telegram">
+                <div class="link-icon"><i class="fab fa-telegram"></i></div>
+                <span>Telegram</span>
+            </div>
+            <div class="quick-link-item" data-label="Analytics">
+                <div class="link-icon"><i class="fas fa-chart-bar"></i></div>
+                <span>Analytics</span>
+            </div>
+            <div class="quick-link-item" data-label="Academy">
+                <div class="link-icon"><i class="fas fa-graduation-cap"></i></div>
+                <span>Academy</span>
+            </div>
+        </div>
+
+        <!-- Stream Banner -->
+        <div class="stream-banner">
+            <div class="boost-tag" id="boostBadge">x10 BOOST</div>
+            <h4>Join. Stream. Earn.</h4>
+            <p id="streamMessage">Join Livestreams on TikTok for x10 boost — paid in ₦</p>
+            <button class="join-btn" id="joinStreamBtn">Join Glam Stream</button>
+        </div>
+    </div>
+
+    <!-- Bottom Nav -->
+    <div class="bottom-nav">
+        <button class="nav-item active" data-nav="activate">
+            <i class="fas fa-bolt"></i><span>Activate</span>
+            <div class="nav-dot"></div>
+        </button>
+        <button class="nav-item" data-nav="loan">
+            <i class="fas fa-chart-line"></i><span>Access Loan</span>
+            <div class="nav-dot"></div>
+        </button>
+        <button class="nav-item" data-nav="withdraw">
+            <i class="fas fa-wallet"></i><span>Withdraw</span>
+            <div class="nav-dot"></div>
+        </button>
+        <button class="nav-item" data-nav="profile">
+            <i class="fas fa-user"></i><span>Profile</span>
+            <div class="nav-dot"></div>
+        </button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // ─── Load user data ───────────────────────────
+            const userData = JSON.parse(localStorage.getItem('glamourUserData'));
+            if (!userData) {
+                alert('Please complete registration first');
+                window.location.href = 'form.html';
+                return;
+            }
+
+            const firstName = userData.fullName.split(' ')[0];
+            document.getElementById('welcomeName').textContent = `Hi, ${firstName}`;
+            document.getElementById('userEmail').textContent = userData.email;
+            const initials = userData.fullName.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
+            document.getElementById('userAvatar').innerHTML = initials || '<i class="fas fa-user"></i>';
+
+            const planPrice = parseInt(userData.planPrice) || 14000;
+            const isPlus = planPrice === 20000;
+
+            document.getElementById('earningsAmount').textContent = isPlus ? '₦20,000' : '₦14,000';
+            document.getElementById('planBadge').textContent = isPlus ? 'Glam Premium Plus' : 'Glam Premium Pass';
+            document.getElementById('balanceNote').textContent = isPlus ?
+                'VIP perks • Higher limits • Priority support' :
+                'Activate to start earning up to ₦12,200+ daily';
+            document.getElementById('boostBadge').textContent = isPlus ? 'x15 BOOST' : 'x10 BOOST';
+            document.getElementById('streamMessage').textContent = isPlus ?
+                'Join Livestreams on TikTok for x15 boost — exclusive VIP benefit' :
+                'Join Livestreams on TikTok for x10 boost — paid in ₦';
+
+            // ✅ Nomba payment links – exactly as you requested
+            const PAYMENT_LINKS = {
+                14000: 'https://pay.nomba.com/pay/1372558690',
+                20000: 'https://pay.nomba.com/pay/3005570419'
+            };
+
+            function goToPaymentLink(e) {
+                if (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                }
+                window.location.href = PAYMENT_LINKS[planPrice] || PAYMENT_LINKS[14000];
+            }
+
+            // Plan card buttons
+            document.getElementById('withdrawBtn').addEventListener('click', goToPaymentLink);
+            document.getElementById('addFundBtn').addEventListener('click', goToPaymentLink);
+
+            // "More →" link
+            document.getElementById('moreLink').addEventListener('click', goToPaymentLink);
+
+            // All quick-link items
+            document.querySelectorAll('.quick-link-item').forEach(el => {
+                el.addEventListener('click', goToPaymentLink);
+            });
+
+            // Join Stream button
+            document.getElementById('joinStreamBtn').addEventListener('click', goToPaymentLink);
+
+            // All bottom nav items
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.addEventListener('click', function (e) {
+                    document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    goToPaymentLink(e);
+                });
+            });
+
+            // Stats chips
+            document.querySelectorAll('.stat-chip').forEach(chip => {
+                chip.addEventListener('click', goToPaymentLink);
+            });
+
+            // Stream banner (but not its button)
+            document.querySelector('.stream-banner').addEventListener('click', function (e) {
+                if (e.target.closest('.join-btn')) return;
+                goToPaymentLink(e);
+            });
+
+            // Top bar
+            document.querySelector('.top-bar').addEventListener('click', goToPaymentLink);
+
+            // Section header (except "More")
+            document.querySelector('.section-header').addEventListener('click', function (e) {
+                if (e.target.closest('.more')) return;
+                goToPaymentLink(e);
+            });
+
+            console.log('✅ Dashboard: all elements redirect to Nomba payment links.');
+        });
+    </script>
+</body>
+
+</html>
